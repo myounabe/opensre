@@ -21,7 +21,6 @@ Level 1 scope:
 ## Run it
 
 ```bash
-make grafana-local-up
 make local-grafana-live
 ```
 

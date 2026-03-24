@@ -32,7 +32,6 @@ cd open-sre-agent
 make install
 cp .env.example .env
 # set ANTHROPIC_API_KEY or OPENAI_API_KEY in .env
-make grafana-local-up
 make local-grafana-live
 ```
 
