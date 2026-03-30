@@ -48,7 +48,7 @@ make local-grafana-live
 
 - 🏃 **Local** - Run Tracer locally with a live Grafana environment, no cloud infra needed
 - ☁️ **Self-hosted** - Deploy to your own infrastructure for continuous monitoring
-- 🔌 **LangGraph / LlamaIndex** - Use Tracer as an agent in your existing AI stack (see [Agent Docs](https://docs.tracer.cloud))
+- 🔌 **LangGraph / LlamaIndex** - Use Tracer as an agent in your existing AI stack (see [Agent Docs](https://tracer.cloud/docs))
 
 ---
 
