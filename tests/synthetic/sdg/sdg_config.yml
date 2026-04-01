@@ -1,0 +1,78 @@
+# SDG / RAG configuration (edit paths and limits for your machine).
+# Loaded by knowledge_base/build_index.py and tests.synthetic.sdg.retrieve.
+
+paths:
+  # Leave null to resolve relative to the open-sre-agent repo root.
+  repo_root: null
+  # Entire synthetic RDS suite (000–014, shared/, etc.) is chunked for RAG — see rds_postgres_corpus.py.
+  rds_fixtures_dir: null
+  sdg_knowledge_base_dir: null
+  vector_index_file: null
+  # Generated scenarios: same file layout as rds_postgres/NNN-name/ (gitignored except generated/README.md).
+  generated_scenarios_dir: null
+  # If set, writes one JSON object per line: { "source", "text" } for all chunks (fixtures + KB).
+  chunk_manifest_export: null
+
+# Primary RAG corpus = full ``rds_postgres`` tree. Optional extra snippets from sdg/knowledge_base/.
+corpus:
+  include_sdg_knowledge_base_supplement: true
+  digest_cloudwatch_metrics: true
+  # Defaults: use chunking.knowledge_base_max_chars / knowledge_base_overlap_chars if null.
+  file_chunk_max_chars: null
+  file_chunk_overlap_chars: null
+
+embedding:
+  # All embedding in this pipeline uses Nomic (see tests/synthetic/sdg/embeddings.py).
+  model_id: nomic-ai/nomic-embed-text-v1
+
+chunking:
+  # Used for rds_postgres file chunks when corpus.file_chunk_max_chars is null; also SDG KB supplement.
+  knowledge_base_max_chars: 1200
+  knowledge_base_overlap_chars: 0
+  fixtures:
+    # Used by fixture_chunks.scenario_to_document / tests only (narrative “scenario cards”).
+    max_chars_per_chunk: 2800
+    overlap_chars: 250
+    include_answer_narrative: true
+    include_performance_insights_digest: true
+    include_cloudwatch_metric_names: true
+    include_rds_event_messages: true
+
+rag:
+  # Number of chunks concatenated into the LLM context after retrieval.
+  retrieval_top_k: 8
+  # Drop hits below this cosine similarity (0–1). 0 = disabled.
+  min_similarity: 0.0
+  reranker:
+    # -------------------------------------------------------------------------
+    # Is a reranker required?
+    # For Nomic bi-encoder retrieval over the chunked rds_postgres tree (+ optional sdg_kb),
+    # reranking is usually NOT worth it: latency + extra model for modest gain.
+    # Consider enabling later if you ingest noisy web docs or thousands of chunks.
+    # -------------------------------------------------------------------------
+    enabled: false
+    # Reserved for cross-encoder / second-stage scoring (not wired yet).
+    model_id: null
+    # If reranker is enabled: retrieve this many chunks first, rerank, then take retrieval_top_k.
+    pool_size: 32
+
+generation:
+  scenarios_to_generate: 15
+  default_failure_mode: null
+  default_instance_class: db.r6g.2xlarge
+  default_difficulty: 2
+  default_time_window_minutes: 20
+  max_validation_retries: 3
+  max_diversity_retries: 5
+  parallel_workers: 1
+
+diversity:
+  embedding_reject_threshold: 0.85
+  track_in_matrix:
+    failure_mode: true
+    instance_class: true
+    difficulty: true
+    confounder_type: true
+
+logging:
+  verbose: false

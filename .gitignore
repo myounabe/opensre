@@ -4,6 +4,12 @@
 .env.local
 .env.*.local
 
+# SDG: local embedding index (rebuild with knowledge_base/build_index.py)
+tests/synthetic/sdg/knowledge_base/vector_index.npz
+# SDG: LLM-generated scenario dirs (see generated/README.md)
+tests/synthetic/sdg/generated/*
+!tests/synthetic/sdg/generated/README.md
+
 # Python
 __pycache__/
 *.py[cod]

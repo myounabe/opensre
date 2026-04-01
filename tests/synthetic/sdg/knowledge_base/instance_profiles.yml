@@ -1,0 +1,21 @@
+# Constraints for plausible RDS instance classes (SDG grounding).
+db.t3.micro:
+  max_connections: 66
+  memory_bytes: 1073741824
+  cpu_baseline_pct: [5, 15]
+  typical_iops: [100, 400]
+  typical_network_bytes_per_sec: [524288, 2097152]
+
+db.r6g.2xlarge:
+  max_connections: 5000
+  memory_bytes: 68719476736
+  cpu_baseline_pct: [15, 30]
+  typical_iops: [1000, 3000]
+  typical_network_bytes_per_sec: [4194304, 16777216]
+
+db.r6g.4xlarge:
+  max_connections: 5000
+  memory_bytes: 137438953472
+  cpu_baseline_pct: [15, 30]
+  typical_iops: [1000, 3000]
+  typical_network_bytes_per_sec: [4194304, 16777216]

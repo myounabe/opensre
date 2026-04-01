@@ -65,6 +65,9 @@ Changelog = "https://github.com/Tracer-Cloud/opensre/releases"
 opensre = "app.cli.__main__:main"
 
 [project.optional-dependencies]
+sdg = [
+    "sentence-transformers>=3.0.0",
+]
 dev = [
     "pytest>=8.0.0",
     "pytest-asyncio>=0.23.0",

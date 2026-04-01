@@ -1,0 +1,25 @@
+# Postgres log line patterns per failure mode (few-shot grounding for log generation).
+connection_exhaustion:
+  - 'FATAL:  remaining connection slots are reserved for replication superusers'
+  - 'FATAL:  sorry, too many clients already'
+  - 'ERROR:  connection to server at "payments-prod" (10.0.1.45), port 5432 failed: FATAL: too many connections'
+
+storage_full:
+  - 'PANIC:  could not write to file "pg_wal/000000010000000100000001": No space left on device'
+  - 'ERROR:  could not extend file "base/16384/2619": wrote only 4096 of 8192 bytes'
+  - 'WARNING:  out of shared memory'
+
+replication_lag:
+  - 'WARNING:  replication slot "replica_1" streaming lag exceeds 60 seconds'
+  - 'ERROR:  canceling statement due to conflict with recovery'
+  - 'DETAIL:  User was holding a relation lock for too long.'
+
+cpu_saturation:
+  - 'ERROR:  deadlock detected'
+  - 'DETAIL:  Process 23891 waits for ShareLock on transaction 7821; blocked by process 23904.'
+  - 'LOG:  duration: 45231.847 ms  statement: SELECT ...'
+  - 'LOG:  automatic vacuum of table "payments_prod.public.orders": ... CPU: user: 12.50s'
+
+healthy: []
+
+failover: []
