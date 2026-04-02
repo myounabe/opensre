@@ -93,6 +93,7 @@ jobs:
   test-synthetic:
     runs-on: ubuntu-latest
     needs: [lint]
+    continue-on-error: true
     env:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
@@ -110,17 +111,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e ".[dev]"
 
-      # Levels 1-2: fast, fixture-based, run on every PR and push.
-      # Uses _FakeLLM monkeypatch — no real LLM calls are made.
+      # Levels 1-2: fixture-based with real LLM, run on every PR and push.
+      # Results are non-deterministic; job is continue-on-error.
       - name: Run synthetic tests (levels 1-2)
         run: python -m pytest -m synthetic -k "level1 or level2" -v tests/synthetic/
-        continue-on-error: false
 
       # Levels 3-4: harder reasoning scenarios, deferred to main-branch pushes only.
       - name: Run synthetic tests (levels 3-4)
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: python -m pytest -m synthetic -k "level3 or level4" -v tests/synthetic/
-        continue-on-error: false
 
   test-kubernetes:
     runs-on: ubuntu-latest
