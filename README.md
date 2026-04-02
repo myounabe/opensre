@@ -44,13 +44,23 @@ brew install Tracer-Cloud/opensre/opensre
 irm https://raw.githubusercontent.com/Tracer-Cloud/opensre/main/install.ps1 | iex
 ```
 
+<!--
 ```bash
 pipx install opensre
-```
+``` -->
 
 ---
 
 ## Quick Start
+
+```bash
+opensre onboard
+opensre investigate -i tests/e2e/kubernetes/fixtures/datadog_k8s_alert.json
+```
+
+---
+
+## Development
 
 > **New to Tracer?** See [SETUP.md](SETUP.md) for detailed platform-specific setup instructions, including Windows setup, environment configuration, and more.
 
@@ -68,7 +78,7 @@ opensre investigate -i tests/e2e/kubernetes/fixtures/datadog_k8s_alert.json
 
 - 🏃 **Local** - Run Tracer locally with a live Grafana environment, no cloud infra needed
 - ☁️ **Self-hosted** - Deploy to your own infrastructure for continuous monitoring
-- 🔌 **LangGraph / LlamaIndex** - Use Tracer as an agent in your existing AI stack (see [Agent Docs](https://tracer.cloud/docs))
+- 🔌 **LangGraph** - Use Tracer as an agent in your existing AI stack (see [Agent Docs](https://tracer.cloud/docs))
 
 ---
 
