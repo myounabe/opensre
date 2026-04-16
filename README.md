@@ -483,6 +483,13 @@ Thanks goes to these amazing people:
             <sub><b>hamzzaaamalik</b></sub>
         </a>
     </td>
+            <td align="center">
+        <a href="https://github.com/octo-patch">
+            <img src="https://avatars.githubusercontent.com/u/266937838?v=4" width="100" alt="octo-patch"/>
+            <br />
+            <sub><b>octo-patch</b></sub>
+        </a>
+    </td>
 		</tr>
 	</tbody>
 </table>
