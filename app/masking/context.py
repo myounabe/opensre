@@ -28,8 +28,7 @@ class MaskingContext:
         self._placeholder_map: dict[str, str] = dict(placeholder_map or {})
         # original value -> placeholder (reverse for reuse/stability)
         self._reverse_map: dict[str, str] = {
-            original: placeholder
-            for placeholder, original in self._placeholder_map.items()
+            original: placeholder for placeholder, original in self._placeholder_map.items()
         }
         # running counter per kind so placeholder numbers stay stable within a run
         self._counters: dict[str, int] = self._derive_counters()
@@ -93,9 +92,7 @@ class MaskingContext:
             return text
         return self._apply_replacements(text, matches)
 
-    def _apply_replacements(
-        self, text: str, matches: list[DetectedIdentifier]
-    ) -> str:
+    def _apply_replacements(self, text: str, matches: list[DetectedIdentifier]) -> str:
         # Replace in reverse order so earlier positions remain valid.
         result = text
         for m in sorted(matches, key=lambda x: x.start, reverse=True):

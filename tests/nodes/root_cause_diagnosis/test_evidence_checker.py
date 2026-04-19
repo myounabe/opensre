@@ -19,6 +19,7 @@ def test_is_clearly_healthy_pure_eks():
 
     assert is_clearly_healthy(raw_alert, eks_only) is True
 
+
 def test_is_clearly_healthy_mixed():
     raw_alert = {
         "state": "normal",
@@ -27,12 +28,10 @@ def test_is_clearly_healthy_mixed():
         "commonAnnotations": {},
     }
 
-    mixed = {
-        "eks_pods": [{"name": "payments-api-x", "phase": "Running"}],
-        "datadog_logs": []
-    }
+    mixed = {"eks_pods": [{"name": "payments-api-x", "phase": "Running"}], "datadog_logs": []}
 
     assert is_clearly_healthy(raw_alert, mixed) is True
+
 
 def test_is_clearly_healthy_not_healthy_state():
     raw_alert = {

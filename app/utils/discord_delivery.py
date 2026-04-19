@@ -9,7 +9,10 @@ import httpx
 
 logger = logging.getLogger(__name__)
 
-def post_discord_message(channel_id: str, embeds:list[dict[str, Any]], bot_token:str, content: str = "") -> tuple[bool, str, str] :
+
+def post_discord_message(
+    channel_id: str, embeds: list[dict[str, Any]], bot_token: str, content: str = ""
+) -> tuple[bool, str, str]:
     """Call discord channels api to post message on channel.
 
     Returns True on success, False on expected failures.
@@ -40,7 +43,9 @@ def post_discord_message(channel_id: str, embeds:list[dict[str, Any]], bot_token
         return (False, str(exc), "")
 
 
-def create_discord_thread(channel_id: str, message_id: str, name:str, bot_token:str) -> tuple[bool, str, str] :
+def create_discord_thread(
+    channel_id: str, message_id: str, name: str, bot_token: str
+) -> tuple[bool, str, str]:
     """Call discord channels api to create a thread.
 
     Returns True on success, False on expected failures.
