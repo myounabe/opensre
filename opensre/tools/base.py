@@ -96,8 +96,10 @@ class BaseTool(ABC):
             params = self.extract_params(raw)
         except (ValueError, KeyError) as exc:
             return ToolResult(success=False, error=f"Parameter error: {exc}")
-        # NOTE: catching broad Exception here so unexpected runtime errors from tools
-        # are surfaced as ToolResult failures rather than crashing the caller.
+        # NOTE: catching broad Exception here so unexpected runtime errors from
+        # tool implementations are surfaced as ToolResult failures rather than
+        # crashing the caller. Subclasses should still raise specific errors
+        # inside extract_params for bad input.
         try:
             return self.run(params)
         except Exception as exc:  # noqa: BLE001
